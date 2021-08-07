@@ -49,6 +49,7 @@ client.connect(err => {
                 if(err)throw err;
                 console.log('successuflly updated db');
             });
+            console.log(location);
             //console.log(msg);
         });
         socket.on('signup',function(msg){
