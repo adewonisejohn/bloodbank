@@ -41,15 +41,15 @@ client.connect(err => {
         console.log('a client connected');
         console.log(socket.id,"has joined");
         socket.on("current_location",function(msg){
-            var id=msg.id.toString();
+            console.log(msg);
+            /*var id=msg.id.toString();
             var query={'_id':id};
             //var location={lat:msg.lat,lng:msg.lng};
             var new_value={$set:{current_location:[msg]}};
             dbo.collection("donors").updateOne(query,new_value,function(err,res){
                 if(err)throw err;
                 console.log('successuflly updated db');
-            });
-            console.log(msg);
+            });*/
             //console.log(msg);
         });
         socket.on('signup',function(msg){
