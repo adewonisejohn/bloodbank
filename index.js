@@ -44,7 +44,7 @@ client.connect(err => {
             console.log(msg);
             var msg=JSON.stringify(msg)
             msg=JSON.parse(msg);
-            console.log(ms.id);
+            console.log(msg.id);
             /*var id=msg.id.toString();
             var query={'_id':id};
             //var location={lat:msg.lat,lng:msg.lng};
