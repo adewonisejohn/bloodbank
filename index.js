@@ -19,7 +19,7 @@ const client = new MongoClient(uri);
 
 app.use(express.json());
 
-serverapp.get('/' , (req , res)=>{
+app.get('/' , (req , res)=>{
 
    res.send('hello from simple server :)')
 
