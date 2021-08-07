@@ -41,7 +41,7 @@ client.connect(err => {
         console.log('a client connected');
         console.log(socket.id,"has joined");
         socket.on("current_location",function(msg){
-            var id=mgd.id.toString();
+            var id=msg.id.toString();
             var query={'_id':id};
             //var location={lat:msg.lat,lng:msg.lng};
             var new_value={$set:{current_location:[msg]}};
