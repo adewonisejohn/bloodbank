@@ -41,7 +41,8 @@ client.connect(err => {
         console.log('a client connected');
         console.log(socket.id,"has joined");
         socket.on("current_location",function(msg){
-            var query={_id:msg.id};
+            var id=mgd.id.toString();
+            var query={_id:id};
             var location={lat:msg.lat,lng:msg.lng};
             var new_value={$set:{current_location:location}};
             dbo.collection("donors").updateOne(query,new_value,function(err,res){
@@ -60,7 +61,7 @@ client.connect(err => {
                 email:msg.email,
                 mobileNumber:msg.mobileNumber,
                 address:msg.address,
-                current_location:""
+                current_location:{}
             }
             dbo.collection("donors").insertOne(info,function(err,res){
                 if(err)console.log(err);
