@@ -42,7 +42,7 @@ client.connect(err => {
         console.log(socket.id,"has joined");
         socket.on("current_location",function(msg){
             console.log(msg);
-            JSON.stringify(msg)
+            JSON.stringify(msg);
             JSON.parse(msg);
             console.log(msg);
             var id=msg.id.toString();
