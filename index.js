@@ -41,14 +41,14 @@ client.connect(err => {
         console.log('a client connected');
         console.log(socket.id,"has joined");
         socket.on("current_location",function(msg){
-            //var id=mgd.id.toString();
-            //var query={_id:id};
+            var id=mgd.id.toString();
+            var query={'_id':id};
             //var location={lat:msg.lat,lng:msg.lng};
-            /*var new_value={$set:{current_location:location}};
+            var new_value={$set:{current_location:[msg]}};
             dbo.collection("donors").updateOne(query,new_value,function(err,res){
                 if(err)throw err;
                 console.log('successuflly updated db');
-            });*/
+            });
             console.log(msg);
             //console.log(msg);
         });
@@ -62,7 +62,7 @@ client.connect(err => {
                 email:msg.email,
                 mobileNumber:msg.mobileNumber,
                 address:msg.address,
-                current_location:{}
+                current_location:[]
             }
             dbo.collection("donors").insertOne(info,function(err,res){
                 if(err)console.log(err);
