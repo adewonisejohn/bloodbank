@@ -44,7 +44,7 @@ client.connect(err => {
             var query={_id:msg.id};
             var location={lat:msg.lat,lng:msg.lng};
             var new_value={$set:{current_location:location}};
-            dbo.collection("donors").updateOne(query,msg,function(err,res){
+            dbo.collection("donors").updateOne(query,new_value,function(err,res){
                 if(err)throw err;
                 console.log('successuflly updated db');
             });
