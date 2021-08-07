@@ -3,6 +3,8 @@ var http=require('http');
 const app=express();
 var server=http.createServer(app);
 const io=require('socket.io')(server);
+
+const port=process.env.PORT || 5300;
 //var MongoClient=require('mongodb').MongoClient;
 
 //const url="mongodb://localhost:27017/";
@@ -17,6 +19,12 @@ const client = new MongoClient(uri);
 
 app.use(express.json());
 
+serverapp.get('/' , (req , res)=>{
+
+   res.send('hello from simple server :)')
+
+});
+
 
 var signup_info={
     name:'Lorem ipsum',
@@ -29,12 +37,12 @@ var signup_info={
 client.connect(err => {
     console.log('connection to db successful');
     const dbo = client.db("blooddonor");
-    dbo.createCollection("donors",function(err,res){
+    /*dbo.createCollection("donors",function(err,res){
         if(err){
             console.log(err);
         }
         console.log("collection created successfully");
-    });
+    });*/
     io.on('connection',function(socket){
         console.log('a client connected');
         console.log(socket.id,"has joined");
@@ -73,50 +81,8 @@ client.connect(err => {
     // perform actions on the collection object
     //client.close();
   });
-/*client.connect(function(err,db){
-        if(!err){
-            console.log('connection established successfully');
-        }
-        var dbo=db.db("blooddonor");
-        dbo.createCollection("donors",function(err,res){
-            if(err){
-                console.log(err);
-            }
-            console.log("collection created successfully");
-        });
-        io.on('connection',function(socket){
-            console.log('a client connected');
-            console.log(socket.id,"has joined");
-            socket.on("current_location",function(msg){
-                
-                var new_value={$set:{current_location:msg}}
-                console.log(msg);
-            });
-            socket.on('signup',function(msg){
-                console.log(msg);
-                var info={
-                    _id:msg.mobileNumber,
-                    name:msg.name,
-                    gender:msg.gender,
-                    bloodType:msg.bloodType,
-                    email:msg.email,
-                    mobileNumber:msg.mobileNumber,
-                    address:msg.address,
-                    current_location:""
-                }
-                dbo.collection("donors").insertOne(info,function(err,res){
-                    if(err)console.log(err);
-                    console.log('onde document added to the db');
-                });
-            });
-            socket.on('disconnnect',function(socket){
-                console.log('a client disconnect')
-            })
-        });
-    }
-);*/
 
-server.listen(3500,"0.0.0.0",function(){
-    console.log('server started at port 3500');
+server.listen(port,"0.0.0.0",function(){
+    console.log('server started at port'+port);
 });
 
