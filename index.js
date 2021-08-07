@@ -19,12 +19,6 @@ const client = new MongoClient(uri);
 
 app.use(express.json());
 
-app.get('/' , (req , res)=>{
-
-   res.send('hello from simple server :)')
-
-});
-
 
 var signup_info={
     name:'Lorem ipsum',
@@ -50,7 +44,7 @@ client.connect(err => {
             var query={_id:msg.id};
             var location={lat:msg.lat,lng:msg.lng};
             var new_value={$set:{current_location:location}};
-            dbo.collection("donors").updateOne(query,new_value,function(err,res){
+            dbo.collection("donors").updateOne(query,msg,function(err,res){
                 if(err)throw err;
                 console.log('successuflly updated db');
             });
