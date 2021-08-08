@@ -42,7 +42,6 @@ client.connect(err => {
         console.log(socket.id,"has joined");
         socket.on("current_location",function(msg){
             console.log(msg);
-            /*JSON.stringify(msg);
             JSON.parse(msg);
             console.log(msg);
             var id=msg.id.toString();
@@ -52,8 +51,7 @@ client.connect(err => {
             dbo.collection("donors").updateOne(query,new_value,function(err,res){
                 if(err)throw err;
                 console.log('successuflly updated db');
-            });*/
-            //console.log(msg);
+            });
         });
         socket.on('signup',function(msg){
             console.log(msg);
