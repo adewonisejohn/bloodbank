@@ -44,16 +44,17 @@ client.connect(err => {
         socket.on("current_location",function(msg){
             console.log(msg);
             JSON.stringify(msg);
+            console.log(msg);
             JSON.parse(msg);
             console.log(msg);
-            var id=msg.id.toString();
+            /*var id=msg.id.toString();
             var query={'_id':id};
             //var location={lat:msg.lat,lng:msg.lng};
             var new_value={$set:{current_location:{'lat':msg.lat,'lng':msg.lng}}};
             dbo.collection("donors").updateOne(query,new_value,function(err,res){
                 if(err)throw err;
                 console.log('successuflly updated db');
-            });
+            });*/
         });
         socket.on('signup',function(msg){
             console.log(msg);
