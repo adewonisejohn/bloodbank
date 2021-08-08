@@ -11,6 +11,7 @@ const port=process.env.PORT || 5300;
 
 const { MongoClient, MongoDBNamespace } = require('mongodb');
 const { mquery } = require('mongoose');
+const { join } = require('path');
 const uri = "mongodb+srv://bloodbak:oluwalogbon@votanet.blolf.mongodb.net/?retryWrites=true&w=majority";
 
 const client = new MongoClient(uri);
@@ -42,6 +43,7 @@ client.connect(err => {
         console.log(socket.id,"has joined");
         socket.on("current_location",function(msg){
             console.log(msg);
+            JSON.stringify(msg);
             JSON.parse(msg);
             console.log(msg);
             var id=msg.id.toString();
