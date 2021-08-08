@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta content="./images/favicon.png" itemprop="image">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">  
+	<link rel="icon" type="image/png" href="./images/favicon-5.ico">
+	<link href="./css/styles-mini.css" rel="stylesheet" type="text/css">
+	<title>BloodBank</title>
+</head>
+<body>
+    <div id="top-bar">
+        <center>
+            <form method="GET" action="/searchDonors">
+                    <br>
+                    <h1 style="color:white;font-size:200%;font-weight:bold;">Blood Donor Locator</h1>
+                    <br>
+                    <select id="blood" name="bloodtype">
+                      <option selected value="A">BLOOD TYPE</option>
+                      <option value="A">A</option>
+                      <option value="B">B</option>
+                      <option value="O">O</option>
+                      <option value="AB">AB</option>
+                    </select>
+                    <input type="text" id="lat" name="lat" hidden>
+                    <input type="text" id="lng" name="lng" hidden>
+                    <input type="submit" value="Search" class="button">
+            </form>
+        </center>
+        <br>
+        <br>
+    </div>
+    <center>
+        <br>
+        <h1 style="font-size:110%;color:gray;float:left;margin-left:4%;"><%=output.length %> result found</h1>
+        <br>
+        <% for(var person of output){ %>
+            <div id="user-details">
+                <div id="name" style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;font-size:120%;font-weight:bold;"><%= person.name %></div>
+                <div id="bloodType" class="details">Blood Type : <i> <%= person.bloodType %></i></div>
+                <div id="bloodType" class="details">Gender : <i> <%= person.gender %></i></div>
+                <div id="bloodType" class="details">Phone Number : <i> <%= person.mobileNumber %></i></div>
+                <div id="bloodType" class="details">Email : <i> <%= person.email %></i></div>
+                <div id="bloodType" class="details">Distance : <i> <%= Math.floor(person.distance) %></i><i>Km away</i></div>
+                <div id="status" class="details">Status : Active</div>
+            </div>
+        <% } %>
+    </center>
+</body>
+<style>
+
+    #blood{
+        width:50vw;
+        height:33px;
+        outline:none;
+        padding-left:10px;
+        padding-top:1px;
+        border:1px solid black;
+        background-color:white;
+    }
+	.button{
+		height:22px;
+		font-size:20px;
+		font-family:'Gill Sans', Gill Sans MT, 'Calibri', 'Trebuchet MS', sans-serif;
+	}
+    body{
+        padding:0px;
+        margin:0px;
+    }
+    .details{
+        margin-top:3%;
+        font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    }
+    #user-details{
+        text-align:left;
+        margin-top:5%;
+        width:96%;
+        height:100%;
+        border-top:2px solid red;
+        padding-top:3%;
+    }
+    #top-bar{
+        width:100%;
+        height:55%;
+        background-color:red;  
+    }
+</style>
+</html>

@@ -1,8 +1,14 @@
+const { resolveSoa } = require('dns');
 const express=require('express');
 var http=require('http');
 const app=express();
 var server=http.createServer(app);
 const io=require('socket.io')(server);
+const ejs=require('ejs');
+
+
+app.set('view engine','ejs');
+app.set('views', 'views');
 
 const port=process.env.PORT || 5300;
 //var MongoClient=require('mongodb').MongoClient;
@@ -12,6 +18,8 @@ const port=process.env.PORT || 5300;
 const { MongoClient, MongoDBNamespace } = require('mongodb');
 const { mquery } = require('mongoose');
 const { join } = require('path');
+const { execPath } = require('process');
+const { fchown } = require('fs');
 const uri = "mongodb+srv://bloodbak:oluwalogbon@votanet.blolf.mongodb.net/?retryWrites=true&w=majority";
 
 const client = new MongoClient(uri);
@@ -19,19 +27,73 @@ const client = new MongoClient(uri);
 
 
 app.use(express.json());
+app.use(express.static('public'));
 
+function distance(location1,location2){
+    var lon1 =  Number(location1.lng) * Math.PI / 180;
+    var lon2 = Number(location2.lng)* Math.PI / 180;
+    var lat1 = Number(location1.lat)* Math.PI / 180;
+    var lat2 = Number(location2.lat) * Math.PI / 180;
 
-var signup_info={
-    name:'Lorem ipsum',
-    email:'loremipsum@gmail.com',
-    mobile:+2348143648991,
-    address:'Lorem ipsum sit adet',
-    gender:'male',
-    bloodGroup:'O'
+    let dlon = lon2 - lon1;
+    let dlat = lat2 - lat1;
+    let a = Math.pow(Math.sin(dlat / 2), 2)
+             + Math.cos(lat1) * Math.cos(lat2)
+             * Math.pow(Math.sin(dlon / 2),2);
+    let c = 2 * Math.asin(Math.sqrt(a));
+
+    // Radius of earth in kilometers. Use 3956
+    // for miles
+    let r = 6371;
+
+    // calculate the result
+    return(c * r);
 }
+
+var example=distance({lat:343.33,lng:3434},{lat:3344.33,lng:994883.5});
+
+
+function preprocess_query(db_values,query_values){
+    for(var i=0;i<db_values.length;i++){
+        /*console.log('-------------------------------------');
+        console.log(db_values[i]);
+        console.log(query_values);
+        console.log('------------------------------------');*/
+        var donor_distance=distance(db_values[i].current_location,query_values);
+        console.log('the distance is'+donor_distance);
+        db_values[i].distance=donor_distance;
+    }
+}
+
+
+
 client.connect(err => {
     console.log('connection to db successful');
     const dbo = client.db("blooddonor");
+
+
+    app.get('/',function(req,res){
+        res.sendFile('index.html');
+    });
+    app.get('/searchDonors',function(req,res){
+        console.log(req.query);
+        var blood=req.query.bloodtype;
+        blood.toUpperCase();
+        console.log(blood);
+        dbo.collection("donors").find({bloodType:blood}).toArray(function(err, result) {
+            if (err) throw err;
+            if(result==[]){
+                console.log('no result found');
+            }else{
+                console.log(result);
+                preprocess_query(result,req.query);
+                console.log('------------------------------------');
+                console.log(result);
+                res.render('result',{output:result});
+            }
+        });
+        
+    });
     /*dbo.createCollection("donors",function(err,res){
         if(err){
             console.log(err);
@@ -78,6 +140,7 @@ client.connect(err => {
         socket.on('disconnnect',function(socket){
             console.log('a client disconnect')
         })
+
         
     });
     // perform actions on the collection object
