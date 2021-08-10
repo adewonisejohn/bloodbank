@@ -20,6 +20,7 @@ const { mquery } = require('mongoose');
 const { join } = require('path');
 const { execPath } = require('process');
 const { fchown } = require('fs');
+const { randomInt } = require('crypto');
 const uri = "mongodb+srv://bloodbak:oluwalogbon@votanet.blolf.mongodb.net/?retryWrites=true&w=majority";
 
 const client = new MongoClient(uri);
@@ -54,7 +55,15 @@ function distance(location1,location2){
         console.log('distance is not 0');
         return(c * r);
     }*/
-    return(Math.floor(Math.random()*10));
+    var random=Math.floor(Math.random()*10);
+    console.log('---------------------------------------');
+    console.log(random);
+    console.log('--------------------------------------------');
+    if(random==0){
+        return 3939.44
+    }else{
+        return random
+    }
 }
 
 var example=distance({lat:343.33,lng:3434},{lat:3344.33,lng:994883.5});
