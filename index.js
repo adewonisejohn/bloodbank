@@ -47,13 +47,14 @@ function distance(location1,location2){
     let r = 6371;
 
     // calculate the result
-    if(Math.floor(c*r)==0){
+    /*if(Math.floor(c*r)==0){
         console.log('distance is 0');
         return(Math.floor(Math.random())*10);
     }else{
         console.log('distance is not 0');
         return(c * r);
-    }
+    }*/
+    return(Math.floor(Math.random()*10));
 }
 
 var example=distance({lat:343.33,lng:3434},{lat:3344.33,lng:994883.5});
