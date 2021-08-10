@@ -55,14 +55,19 @@ function distance(location1,location2){
         console.log('distance is not 0');
         return(c * r);
     }*/
-    var random=Math.floor(Math.random()*10);
-    console.log('---------------------------------------');
-    console.log(random);
-    console.log('--------------------------------------------');
-    if(random==0){
-        return 3939.44
+    if(c*r==0){
+        console.log('is zero');
+        var random=Math.floor(Math.random()*10);
+        console.log('---------------------------------------');
+        console.log(random);
+        console.log('--------------------------------------------');
+        if(random==0){
+            return 3939.44
+        }else{
+            return random
+        }
     }else{
-        return random
+        return(c*r);
     }
 }
 
