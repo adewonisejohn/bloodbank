@@ -47,7 +47,7 @@ function distance(location1,location2){
     let r = 6371;
 
     // calculate the result
-    if(c*r==0){
+    if(Math.floor(c*r)==0){
         return(Math.floor(Math.random())*10);
     }else{
         return(c * r);
