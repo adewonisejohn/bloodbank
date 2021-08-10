@@ -48,8 +48,10 @@ function distance(location1,location2){
 
     // calculate the result
     if(Math.floor(c*r)==0){
+        console.log('distance is 0');
         return(Math.floor(Math.random())*10);
     }else{
+        console.log('distance is not 0');
         return(c * r);
     }
 }
