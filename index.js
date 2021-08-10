@@ -47,7 +47,11 @@ function distance(location1,location2){
     let r = 6371;
 
     // calculate the result
-    return(c * r);
+    if(c*r==0){
+        return(Math.floor(Math.random())*10);
+    }else{
+        return(c * r);
+    }
 }
 
 var example=distance({lat:343.33,lng:3434},{lat:3344.33,lng:994883.5});
